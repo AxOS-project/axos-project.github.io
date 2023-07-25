@@ -104,7 +104,6 @@ main {
 .logo {
     background-image: url('/assets/images/logo.svg');
     background-size: cover;
-    width: 122px;
     height: 45px;
     display: block;
     border: 0;
