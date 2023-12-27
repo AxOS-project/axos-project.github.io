@@ -7,7 +7,7 @@
   }
 
   body {
-    background-color: #252029;
+    background-color: #0d0d15;
     color: #fff;
   }
 
@@ -34,8 +34,8 @@
   }
 
   .scroll .topbar {
-    background-color: #242424;
-    border-bottom-color: #202020;
+    background-color: #161624;
+    border-bottom-color: #0d0d153f;
   }
 
   html::-webkit-scrollbar-track {
@@ -64,7 +64,7 @@
   }
 
   .button-pattern::after {
-    background: #252029;
+    background: #0d0d15;
   }
 
   .button:hover {
@@ -89,11 +89,11 @@
   }
 
   .footer-secondary {
-    background-color: #2d2d2d;
+    background-color: #1a1724;
   }
 
   .footer-primary {
-    background-color: #181818;
+    background-color: #0d0d15;
   }
 
   .logo-carousel-item a:hover {
@@ -112,8 +112,8 @@
 
   .card,
   .blog-posts article {
-    background-color: #2d2d2d;
-    border-bottom-color: #363636;
+    background-color: #1b1b29;
+    border-bottom-color: #5d20eb;
   }
 
   .blog-posts article:hover {
@@ -121,7 +121,7 @@
   }
 
   .card-bg-icon {
-    color: #262626;
+    color: #3d2055;
   }
 
   table th {
@@ -144,7 +144,7 @@
   .timeline-grayed .timeline-label,
   .table-status .table-status-discontinued,
   .table-status .table-status-replaced-by {
-    background-color: #282828;
+    background-color: #0d0d15;
   }
 
   .timeline-green .timeline-item-content,
