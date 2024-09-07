@@ -1,0 +1,30 @@
+
+header.donwloadheader {
+    width: 99vw;
+    height: 40vh;
+    margin-top: 100px;
+    margin-bottom: 100px;
+
+}
+header.donwloadheader .downloadHeaderTextContainer {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+}
+
+
+@media(max-width: 1250px) {
+    header.donwloadheader .title {
+        text-align: center;
+        margin: 100px;
+        font-size: 50px;
+    }
+    header.donwloadheader .desc {
+        text-align: center;
+    }
+    header.donwloadheader {
+        margin-top: 150px;
+    }
+}

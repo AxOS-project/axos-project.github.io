@@ -1,0 +1,38 @@
+.welcome {
+  height: 120vh;
+  background-image: url("../img/axos-plasma.png");
+  background-position: center;
+  background-repeat: no-repeat;
+  overflow: hidden;
+  margin-bottom: 500px;
+  margin: 100px;
+}
+
+.welcome .textContainer {
+  height: 100%;
+  background-color: #0d0d0dcf;
+  backdrop-filter: blur(5px);
+  clip-path: polygon(100% 13%, 0 0, 0 120%);
+  padding: 80px 1023px 0px 140px;
+  display: flex;
+  flex-direction: column;
+  gap: 54px;
+}
+
+.welcome .textContainer .headSection {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+@media (max-width: 1250px) {
+  .welcome {
+    margin-bottom: 500px;
+    margin: 0;
+  }
+  .welcome .textContainer {
+    clip-path: none;
+    padding: 30px;
+    text-align: center;
+  }
+}
