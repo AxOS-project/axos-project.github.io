@@ -30,7 +30,7 @@ const Navbar = () => {
             <a href="https://discord.gg/xQdtDBFmsy">Discord</a>
           </li>
           <li>
-            <a href="/download">Download</a>
+            <a href="#download">Download</a>
           </li>
         </ul>
       </div>

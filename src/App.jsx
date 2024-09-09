@@ -1,16 +1,36 @@
 import React from "react";
-import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
-import Home from "./pages/home";
-import Download from "./pages/download";
+import Navbar from "./components/navbar";
+import Mainpage from "./components/mainpage";
+import WelcomeSection from "./components/welcomesection";
+import Beautiful from "./components/beautiful";
+import Powerful from "./components/powerful";
+import OpenSource from "./components/openSource";
+import Secure from "./components/secure";
+import Footer from "./components/footer";
+import DlHeader from "./components/dlheader";
+import DlCards from "./components/dlcards";
+
 
 function App() {
   return (
-    <Router>
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/download" element={<Download />} />
-      </Routes>
-    </Router>
+    <div className="App">
+      <header>
+        <Navbar />
+      </header>
+      <body>
+        <Mainpage />
+        <WelcomeSection />
+        <Beautiful />
+        <Powerful />
+        <OpenSource />
+        <Secure />
+        <DlHeader />
+        <DlCards />
+      </body>
+      <footer>
+        <Footer />
+      </footer>
+    </div>
   );
 }
 

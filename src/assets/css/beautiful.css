@@ -45,5 +45,7 @@
     text-align: center;
     width: 80%;
   }
-
+  .beautiful .title {
+    font-size: 70px;
+  }
 }

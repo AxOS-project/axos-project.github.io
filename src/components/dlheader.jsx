@@ -3,7 +3,7 @@ import "../assets/css/dlheader.css";
 
 const DlHeader = () => {
   return (
-    <header className="donwloadheader">
+    <header className="donwloadheader" id="download">
       <div className="downloadHeaderTextContainer">
         <span className="title">Download and install AxOS</span>
         <span className="desc">

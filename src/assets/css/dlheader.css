@@ -2,8 +2,7 @@
 header.donwloadheader {
     width: 99vw;
     height: 40vh;
-    margin-top: 100px;
-    margin-bottom: 100px;
+    margin-bottom: 50px;
 
 }
 header.donwloadheader .downloadHeaderTextContainer {
@@ -23,8 +22,5 @@ header.donwloadheader .downloadHeaderTextContainer {
     }
     header.donwloadheader .desc {
         text-align: center;
-    }
-    header.donwloadheader {
-        margin-top: 150px;
     }
 }
