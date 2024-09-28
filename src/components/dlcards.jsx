@@ -36,7 +36,7 @@ const DlCards = () => {
           </div>
         </section>
         <footer className="cardfooter">
-          <button onclick={plasmaclick}>
+          <button onClick={plasmaclick}>
             <img src={dlico} alt="dl"></img>
             <span className="btn">Donwload</span>
           </button>
@@ -63,7 +63,7 @@ const DlCards = () => {
           </div>
         </section>
         <footer className="cardfooter">
-          <button onclick={awmclick}>
+          <button onClick={awmclick}>
             <img src={dlico} alt="dl"></img>
             <span className="btn">Donwload</span>
           </button>
