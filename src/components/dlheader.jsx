@@ -6,9 +6,6 @@ const DlHeader = () => {
     <header className="donwloadheader" id="download">
       <div className="downloadHeaderTextContainer">
         <span className="title">Download and install AxOS</span>
-        <span className="desc">
-          You can chose which edition you want. Thanks for your trust !
-        </span>
       </div>
     </header>
   );

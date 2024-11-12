@@ -5,7 +5,7 @@ import img_header from "../assets/img/axpc.png";
 const Mainpage = () => {
   function dlclick(e) {
     e.preventDefault();
-    window.location.href = "#download";
+    window.location.href = "https://github.com/AxOS-project/AxOS/releases/latest";
   }
 
   return (

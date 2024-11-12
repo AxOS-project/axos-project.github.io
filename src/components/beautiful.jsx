@@ -1,6 +1,6 @@
 import React from "react";
 import "../assets/css/beautiful.css";
-import beautiful_img from '../assets/img/axawed-screen.png'
+import beautiful_img from '../assets/img/axhypr-screen.png'
 
 const Beautiful = () => {
   return (
