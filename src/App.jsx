@@ -8,6 +8,7 @@ import OpenSource from "./components/openSource";
 import Secure from "./components/secure";
 import Footer from "./components/footer";
 import DlCards from "./components/dlcards";
+import DlHeader from "./components/dlheader";
 
 
 function App() {
@@ -23,6 +24,7 @@ function App() {
         <Powerful />
         <OpenSource />
         <Secure />
+        <DlHeader />
         <DlCards />
       </body>
       <footer>

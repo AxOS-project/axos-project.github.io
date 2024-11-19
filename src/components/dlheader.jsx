@@ -5,7 +5,8 @@ const DlHeader = () => {
   return (
     <header className="donwloadheader" id="download">
       <div className="downloadHeaderTextContainer">
-        <span className="title">Download and install AxOS</span>
+        <span className="title">So, wanna give a try ?</span>
+        <span className="desc">Download AxOS and try it out</span>
       </div>
     </header>
   );

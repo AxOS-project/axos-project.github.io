@@ -7,18 +7,13 @@ const WelcomeSection = () => {
         <div className="headSection">
           <span className="title">Welcome to AxOS.</span>
           <span className="desc">
-            Designed to last over time and always be faithful to you.
+            The beauty serving the beast.
           </span>
         </div>
         <span className="desc">
-          Step into a world where innovation meets functionality; welcome to
-          AxOS, the pinnacle of operating system excellence. AxOS isn't just a
-          platform; it's a revolution in the way we interact with technology.
-          Imagine a landscape where your digital interactions are seamless and
-          intuitive. AxOS brings this vision to life through its
-          state-of-the-art architecture, blending cutting-edge technology with
-          user-centric design. Every click, every swipe, and every task is
-          meticulously crafted to enhance your computing experience.
+          Searching for an operating system that is both beautiful and powerful? Look no further.
+          With a beautiful user interface and powerful features,  AxOS is the perfect operating system for you.
+          Focus on the beauty, performances and functionalities of your computer with AxOS.
         </span>
       </div>
     </section>

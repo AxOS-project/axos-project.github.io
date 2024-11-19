@@ -11,15 +11,10 @@ const Powerful = () => {
           <span className="desc">Play or create.</span>
         </div>
         <span className="desc">
-          Underneath its sleek design lies a robust foundation engineered to
-          handle complex tasks with ease. AxOS leverages cutting-edge technology
-          to deliver lightning-fast processing speeds and seamless multitasking,
-          ensuring that you can tackle any challenge without missing a beat.
-          From running resource-intensive applications to managing large
-          datasets, AxOS empowers users with the computing power needed to excel
-          in today's digital landscape. Its optimized performance ensures smooth
-          operation even under the most demanding workloads, enhancing
-          efficiency and productivity.
+          AxOS handles all your needs, whether you want to play or create. With the Linux Zen kernel,
+          you get the best performance for your games and applications. Or you can chose stability with 
+          the classic Linux kernel, the choice is yours. With AxOS, you can play any game, create any
+          application and enjoy the power of your computer.
         </span>
       </div>
       <div className="imgContainer">
