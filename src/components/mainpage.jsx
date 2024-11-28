@@ -15,7 +15,7 @@ const Mainpage = () => {
         <span className="desc">The Linux experience, enhanced.</span>
         <button onClick={dlclick}>
           <img src={dl_icon} alt="dl" />
-          <span className="btn">Donwload</span>
+          <span className="btn">Download</span>
         </button>
       </div>
       <div className="right">
