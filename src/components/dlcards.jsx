@@ -24,7 +24,7 @@ const DlCards = () => {
         <footer className="cardfooter">
           <button onClick={plasmaclick}>
             <img src={dlico} alt="dl"></img>
-            <span className="btn">Donwload</span>
+            <span className="btn">Download</span>
           </button>
         </footer>
       </div>
