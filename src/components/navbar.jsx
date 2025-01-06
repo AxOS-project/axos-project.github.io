@@ -24,7 +24,7 @@ const Navbar = () => {
             <a href="https://github.com/axos-project">Github</a>
           </li>
           <li>
-            <a href="https://wiki.axos-project.com">Docs</a>
+            <a href="https://www.axos-project.com/docs">Docs</a>
           </li>
           <li>
             <a href="https://discord.gg/xQdtDBFmsy">Discord</a>
