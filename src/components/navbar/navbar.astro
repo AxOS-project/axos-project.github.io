@@ -1,0 +1,138 @@
+---
+import Button from "@components/ui/button.astro";
+import Link from "@components/ui/link.astro";
+import { Icon } from "astro-icon/components";
+
+interface MenuItem {
+	title: string;
+	path: string;
+	children?: MenuItem[];
+}
+
+export const menuitems: MenuItem[] = [
+	{
+		title: "Docs",
+		path: "/docs",
+	},
+	{
+		title: "Blog",
+		path: "/blog",
+	},
+	{
+		title: "Discord",
+		path: "https://discord.gg/xQdtDBFmsy",
+	},
+	{
+		title: 'Github',
+		path: 'https://github.com/AxOS-project'
+	}
+];
+---
+
+<div
+	x-data="{open: window.innerWidth < 768 ? false : true}"
+	class="flex flex-col max-w-screen-xl px-4 mx-auto md:items-center md:justify-between md:flex-row md:px-6 lg:px-8 z-10 md:pt-2 relative">
+	<div class="p-4 flex flex-row items-center justify-between">
+		<a
+			href="/"
+			class="flex gap-3 items-center text-lg font-semibold tracking-widest text-gray-900 uppercase rounded-lg dark:text-white focus:outline-none focus:shadow-outline">
+			<!-- <Icon name="logo" width="30" /> -->
+			AxOS
+		</a>
+	</div>
+	<nav
+		:class="{'flex': open, 'hidden': !open}"
+		x-show="open"
+		x-transition:enter="transition ease-out duration-200"
+		x-transition:enter-start="opacity-0 transform scale-90"
+		x-transition:enter-end="opacity-100 transform scale-100"
+		x-transition:leave="transition ease-in duration-200"
+		x-transition:leave-start="opacity-100 transform scale-100"
+		x-transition:leave-end="opacity-0 transform scale-90"
+		class="md:mt-0 lg:pl-8 md:items-center flex-grow pb-4 md:pb-0 flex-col gap-2 transition-all ease-out md:transition-none md:justify-center md:flex-row hidden">
+		<div class="flex flex-col flex-grow text-center gap-2 md:justify-center md:items-center md:flex md:flex-row md:mx-auto">
+			{
+				menuitems.map((item) =>
+					item.children && item.children.length ? (
+						<div class="relative" x-data="{ open: false }">
+							<Button x-on:click="open = !open" style="link" size="sm" class="mt-[2px]">
+								{item.title}
+								<svg
+									fill="currentColor"
+									viewBox="0 0 20 20"
+									x-bind:class="{'rotate-180': open, 'rotate-0': !open}"
+									class="inline w-4 h-4 mb-[2px] transition-transform duration-200 transform">
+									<path
+										fill-rule="evenodd"
+										d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+										clip-rule="evenodd"
+									/>
+								</svg>
+							</Button>
+							<div
+								x-show="open"
+								x-transition:enter="transition ease-out duration-100"
+								x-transition:enter-start="transform opacity-0 scale-95"
+								x-transition:enter-end="transform opacity-100 scale-100"
+								x-transition:leave="transition ease-in duration-75"
+								x-transition:leave-start="transform opacity-100 scale-100"
+								x-transition:leave-end="transform opacity-0 scale-95"
+								class="absolute mt-2 bg-white right-0 w-full origin-top-right rounded-md md:w-48 outline-2 border border-gray-300">
+								<div class="px-2 py-2 rounded-md shadow dark:bg-gray-800">
+									{item.children.map((subitem) => (
+										<Link
+											href={subitem.path}
+											style="hover"
+											size="sm"
+											class="block"
+											x-data="{ isActive: false }"
+											x-init={`() => {
+												const path = $el.getAttribute('data-path');
+												const checkSubPath = () => {
+													isActive = window.location.pathname === path ||
+																window.location.pathname === path + '/' ||
+																window.location.pathname === '/it' + path ||
+																window.location.pathname === '/it' + path + '/';
+												};
+												document.removeEventListener('astro:page-load', checkSubPath);
+												document.addEventListener('astro:page-load', checkSubPath);
+											}`}
+											x-bind:class="{ 'bg-gray-200 dark:bg-gray-600': isActive }">
+											{subitem.title}
+										</Link>
+									))}
+								</div>
+							</div>
+						</div>
+					) : (
+						<Link
+							href={item.path}
+							style="hover"
+							size="sm"
+							x-data="{ isActive: false }"
+							x-init={`() => {
+								const path = $el.getAttribute('data-path');
+								const checkPath = () => {
+									isActive = window.location.pathname === path ||
+												window.location.pathname === path + '/' ||
+												window.location.pathname === '/it' + path ||
+												window.location.pathname === '/it' + path + '/';
+								};
+								document.removeEventListener('astro:page-load', checkPath);
+								document.addEventListener('astro:page-load', checkPath);
+							}`}
+							x-bind:class="{ 'bg-gray-200 dark:bg-gray-600': isActive }"
+							data-path={item.path}>
+							{item.title}
+						</Link>
+					),
+				)
+			}
+		</div>
+		<div class="mt-4 md:mt-0 flex flex-col md:flex-row gap-4">
+			<Link href="https://github.com/axos-project/axos/releases/latest" class="md:px-3 md:py-2 leading-6">
+				Download AxOS
+			</Link>
+		</div>
+	</nav>
+</div>

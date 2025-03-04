@@ -1,0 +1,41 @@
+---
+import { Image } from "astro:assets";
+import { menuitems } from "@components/navbar/navbar.astro";
+import ThemeSelector from "@components/themeselector.astro";
+import logo from "assets/logo.svg";
+---
+
+<footer class="pb-12 pt-28 dark:bg-stone-950">
+	<div class="mx-auto max-w-6xl px-6 md:px-12 lg:px-6 xl:px-0">
+		<a href="/" aria-label="logo" class="group flex items-center justify-center space-x-2">
+			<Image class="inline-block" src={logo} alt="AxOS" width={30} height={30} />
+			<span class="text-semibold duration-300 text-gray-400 group-hover:text-gray-900 dark:text-white dark:group-hover:text-gray-100">
+				AxOS
+			</span>
+		</a>
+		<ul role="list" class="flex flex-wrap items-center justify-center gap-4 py-4 text-gray-600 dark:text-white sm:gap-8">
+			<li role="listitem">
+				<a href="/" class="duration-300 hover:text-gray-900 dark:hover:text-gray-100">Home</a>
+			</li>
+			{
+				menuitems.map(
+					(item) =>
+						item &&
+						item.path && (
+							<li role="listitem">
+								<a href={item.path} class="duration-300 hover:text-gray-900 dark:hover:text-gray-100">
+									{item.title}
+								</a>
+							</li>
+						)
+				)
+			}
+		</ul>
+		<div class="flex justify-center mt-12 gap-3">
+			<ThemeSelector />
+		</div>
+		<div class="mt-4 text-center">
+			<span class="text-sm tracking-wide text-gray-500 dark:text-white">Copyright © 2025 AxOS. All rights reserved</span>
+		</div>
+	</div>
+</footer>
