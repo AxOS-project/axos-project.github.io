@@ -1,0 +1,53 @@
+local_backend: true
+
+logo_url: /logo.svg
+
+backend:
+    name: "github"
+    repo: axos-project/axos-project.github.io
+    branch: main
+    base_url: https://www.axos-project.com
+    automatic_deployments: true
+
+media_folder: "public/images"
+public_folder: "/images"
+
+collections:
+    - name: "posts"
+      label: "Blog Posts"
+      folder: "src/content/blog"
+      create: true
+      delete: true
+      fields:
+          - name: "title"
+            widget: "string"
+            label: "Post Title"
+          - label: "Draft"
+            name: "draft"
+            widget: "boolean"
+          - label: "Author"
+            name: "author"
+            widget: "string"
+          - label: "Tags"
+            name: "tags"
+            widget: "list"
+          - label: "Image"
+            name: "image"
+            widget: "object"
+            fields:
+                - { label: Source, name: src, widget: image }
+                - { label: Alt Text, name: alt, widget: string }
+          - label: "Snippet"
+            name: "snippet"
+            widget: "text"
+          - label: "Publish Date"
+            name: "publishDate"
+            widget: "datetime"
+            format: "YYYY-MM-DD HH:mm"
+          - label: "Category"
+            name: "category"
+            widget: "select"
+            options: ["Tutorials", "News", "Reviews", "Frameworks"]
+          - name: "body"
+            widget: "markdown"
+            label: "Post Body"
