@@ -14,7 +14,7 @@ export const get = async () => {
         return rss({
                 title: `AxOS`,
                 description: "AxOS - The Linux experience, enhanced.",
-                site: import.meta.env.SITE,
+                site: context.site,
 
                 items: posts.map((post) => ({
                         link: post.slug,
