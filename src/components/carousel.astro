@@ -1,0 +1,158 @@
+---
+import { Icon } from "astro-icon/components";
+
+interface CarouselItem {
+  image: string;
+  title: string;
+  description?: string;
+}
+
+// Expanded carousel items with optional descriptions
+const carouselItems: CarouselItem[] = [
+  {
+    image: "/images/sleex.png",
+    title: "Sleex Desktop Environment",
+  },
+  {
+    image: "/images/calla.png",
+    title: "Calla Desktop Environment",
+  },
+  {
+    image: "/images/plasma.png",
+    title: "Plasma Desktop Environment",
+  },
+];
+---
+
+<div class="relative w-full max-w-6xl">
+    <div id="imageCarousel" class="flex gap-4 overflow-x-scroll no-scrollbar py-4">
+        {
+            carouselItems.map((item, index) => (
+                <div class="carousel-item flex-none w-full max-w-[80%] snap-center relative group" role="group">
+                    <img src={item.image} alt={item.title} class="w-full h-auto rounded-[10px]" />
+                </div>
+            ))
+        }
+    </div>
+
+    <!-- Navigation Buttons -->
+    <div class="carousel-navigation absolute top-1/2 -translate-y-1/2 w-full flex justify-between px-4">
+        <button id="prevSlide" class="bg-white/50 hover:bg-white/75 rounded-full p-2 shadow-md transition-all hidden md:block">
+            <Icon name="mdi:chevron-left" class="w-8 h-8" />
+        </button>
+        <button id="nextSlide" class="bg-white/50 hover:bg-white/75 rounded-full p-2 shadow-md transition-all hidden md:block" aria-label="Next Slide">
+            <Icon name="mdi:chevron-right" class="w-8 h-8" />
+        </button>
+    </div>
+
+    <!-- Slide Indicators -->
+    <div class="slide-indicators flex justify-center mt-4 space-x-2">
+        {
+            carouselItems.map((_, index) => (
+                <button
+                    class="slide-indicator w-3 h-3 rounded-full bg-gray-300 hover:bg-gray-500 transition-colors"
+                    aria-label={`Go to slide ${index + 1}`}
+                    data-slide={index}
+                />
+            ))
+        }
+    </div>
+</div>
+
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    const carousel = document.getElementById("imageCarousel");
+    const prevButton = document.getElementById("prevSlide");
+    const nextButton = document.getElementById("nextSlide");
+    const indicators = document.querySelectorAll(".slide-indicator");
+
+    if (!carousel || !prevButton || !nextButton) return;
+
+    let currentSlide = 0;
+    const totalSlides = indicators.length;
+
+    // Drag scroll functionality
+    let isDown = false;
+    let startX;
+    let scrollLeft;
+
+    carousel.addEventListener("mousedown", (e) => {
+      isDown = true;
+      carousel.classList.add("cursor-grabbing");
+      startX = e.pageX - carousel.offsetLeft;
+      scrollLeft = carousel.scrollLeft;
+    });
+
+    carousel.addEventListener("mouseleave", () => {
+      isDown = false;
+      carousel.classList.remove("cursor-grabbing");
+    });
+
+    carousel.addEventListener("mouseup", () => {
+      isDown = false;
+      carousel.classList.remove("cursor-grabbing");
+    });
+
+    carousel.addEventListener("mousemove", (e) => {
+      if (!isDown) return;
+      e.preventDefault();
+      const x = e.pageX - carousel.offsetLeft;
+      const walk = (x - startX) * 2;
+      carousel.scrollLeft = scrollLeft - walk;
+    });
+
+    // Navigation functions
+    function scrollToSlide(index) {
+      if (!carousel) return;
+      const slides = carousel.querySelectorAll(".carousel-item");
+      if (slides[index]) {
+        slides[index].scrollIntoView({
+          behavior: "smooth",
+          block: "nearest",
+          inline: "center",
+        });
+        updateActiveIndicator(index);
+      }
+    }
+
+    function updateActiveIndicator(index) {
+      indicators.forEach((indicator, i) => {
+        indicator.classList.toggle("bg-gray-500", i === index);
+        indicator.classList.toggle("bg-gray-300", i !== index);
+      });
+    }
+
+    // Previous and Next Slide Buttons
+    prevButton.addEventListener("click", () => {
+      currentSlide = currentSlide > 0 ? currentSlide - 1 : totalSlides - 1;
+      scrollToSlide(currentSlide);
+    });
+
+    nextButton.addEventListener("click", () => {
+      currentSlide = currentSlide < totalSlides - 1 ? currentSlide + 1 : 0;
+      scrollToSlide(currentSlide);
+    });
+
+    // Slide Indicators
+    indicators.forEach((indicator, index) => {
+      indicator.addEventListener("click", () => {
+        currentSlide = index;
+        scrollToSlide(currentSlide);
+      });
+    });
+
+    // Initial active indicator
+    updateActiveIndicator(0);
+  });
+</script>
+
+<style is:global>
+  /* Hide scrollbar while maintaining functionality */
+  .no-scrollbar {
+    -ms-overflow-style: none; /* IE and Edge */
+    scrollbar-width: none; /* Firefox */
+  }
+  .no-scrollbar::-webkit-scrollbar {
+    display: none; /* Chrome, Safari, and Opera */
+  }
+</style>
