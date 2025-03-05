@@ -1,21 +1,12 @@
 import { getCollection } from "astro:content";
 import rss from "@astrojs/rss";
 
-export const get = async () => {
-        const posts = await getCollection("blog", ({ data }) => {
-                return !data.draft && data.publishDate < new Date();
-        });
-
-        // Sort content entries by publication date
-        posts.sort(
-                (a, b) => b.data.publishDate.valueOf() - a.data.publishDate.valueOf(),
-        );
-
+export const get = async (context) => {
+        const posts = await getCollection("blog");
         return rss({
                 title: `AxOS`,
                 description: "AxOS - The Linux experience, enhanced.",
                 site: context.site,
-
                 items: posts.map((post) => ({
                         link: post.slug,
                         title: post.data.title,
