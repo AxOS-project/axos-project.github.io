@@ -8,8 +8,8 @@ import { Icon } from "astro-icon/components";
 // Generate a new path for every collection post
 export async function getStaticPaths() {
 	const blogEntries = await getCollection("blog");
-	let slug = post.slug.substring(3);
 	return blogEntries.map((post) => {
+		let slug = post.slug.substring(3);
 		return {
 			params: { slug: slug },
 			props: { post: post },
