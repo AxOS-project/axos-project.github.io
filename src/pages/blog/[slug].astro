@@ -5,7 +5,6 @@ import Layout from "@layouts/Layout.astro";
 import { getArticleReadingTime } from "@utils/blog";
 import { Icon } from "astro-icon/components";
 
-
 // Generate a new path for every collection post
 export async function getStaticPaths() {
 	const blogEntries = await getCollection("blog");
@@ -23,7 +22,7 @@ interface Props {
 	post: CollectionEntry<'blog'>;
 }
 const { post } = Astro.props;
-const { data, render } = post;
+const { render } = post;
 const { Content } = await render();
 const readTime = getArticleReadingTime(post.body);
 ---
