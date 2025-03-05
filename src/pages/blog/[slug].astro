@@ -9,31 +9,26 @@ import { Icon } from "astro-icon/components";
 // Generate a new path for every collection post
 export async function getStaticPaths() {
 	const blogEntries = await getCollection("blog");
-	var localizedBlogEntries = blogEntries.filter((entry) =>
-		entry.slug.startsWith("en"),
-	);
-	return localizedBlogEntries.map((post) => {
-		let slug = post.slug;
-		slug = slug.substring(3).replaceAll("blog/", "");
+	return blogEntries.map((post) => {
 		return {
-			params: { slug: slug },
+			params: { slug: post.slug },
 			props: { post: post },
 		};
 	});
 }
+
 // Get the post directly from the prop on render
 import type { CollectionEntry } from 'astro:content';
 interface Props {
-  post: CollectionEntry<'blog'>;
-  lang?: string;
+	post: CollectionEntry<'blog'>;
 }
-const { post, lang } = Astro.props;
+const { post } = Astro.props;
 const { data, render } = post;
 const { Content } = await render();
 const readTime = getArticleReadingTime(post.body);
 ---
 
-<Layout title={post.data.title} lang={lang}>
+<Layout title={post.data.title} lang="en">
 	<Container>
 		<div class="mx-auto prose prose-lg dark:prose-invert mt-14">
 			<a

@@ -10,12 +10,8 @@ export async function getStaticPaths() {
 	const posts = await getCollection("blog", ({ data }) => {
 		return !data.draft && data.publishDate < new Date();
 	});
-	const localizedPosts = posts.filter((page) => {
-		const [lang, ...slug] = page.slug.split("/");
-		return lang === "en";
-	});
 	const categories = new Set();
-	localizedPosts.map((post) => {
+	posts.map((post) => {
 		typeof post.data.category === "string" &&
 			categories.add(post.data.category.toLowerCase());
 	});
@@ -23,17 +19,17 @@ export async function getStaticPaths() {
 		return {
 			params: { category: category },
 			props: {
-				posts: localizedPosts.filter(
-					(post) => typeof post.data.category === "string",
+				posts: posts.filter(
+					(post) => typeof post.data.category === "string" && 
+					post.data.category.toLowerCase() === category
 				),
-				category: category,
-				lang: "en",
+				category: category
 			},
 		};
 	});
 }
 // Get the post directly from the prop on render
-const { posts, category, lang } = Astro.props;
+const { posts, category } = Astro.props;
 ---
 
 <Layout title="Blog">
