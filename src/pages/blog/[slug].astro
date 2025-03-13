@@ -9,7 +9,13 @@ import { Icon } from "astro-icon/components";
 // Generate a new path for every collection post
 export async function getStaticPaths() {
 	const blogEntries = await getCollection("blog");
+	if (!blogEntries.length) {
+		throw new Error("No blog entries found. Please add content to src/content/blog/");
+	}
 	return blogEntries.map((post) => {
+		if (!post.slug) {
+			throw new Error(`Blog entry is missing a slug: ${JSON.stringify(post)}`);
+		}
 		return {
 			params: { slug: post.slug },
 			props: { post },
