@@ -10,10 +10,9 @@ import { Icon } from "astro-icon/components";
 export async function getStaticPaths() {
 	const blogEntries = await getCollection("blog");
 	return blogEntries.map((post) => {
-		let slug = post.slug.substring(3);
 		return {
-			params: { slug: slug },
-			props: { post: post },
+			params: { slug: post.slug },
+			props: { post },
 		};
 	});
 }
