@@ -12,6 +12,7 @@ image:
 snippet: Epsilon is the package manager of AxOS. It is replacing Pacman, the previous package manager. Let's see why...
 publishDate: 2025-04-28 09:52
 category: Epsilon
+slug: why-epsi
 ---
 
 Pacman is a cool package manager. Default in Arch Linux, it is a powerful tool for managing packages. But it has some limitations. Epsilon is here to solve these limitations and to provide a better experience for the users of AxOS.

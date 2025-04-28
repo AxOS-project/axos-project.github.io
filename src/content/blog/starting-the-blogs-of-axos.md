@@ -11,6 +11,7 @@ image:
 snippet: Blogs ? Never thought about it. I'm believing that it will be a good way to share some stuff with you.
 publishDate: 2025-03-04 20:06
 category: Website
+slug: starting-the-blogs-of-axos
 ---
 
 Blogs ? Why not. Honestly, I never thought about it. But I'm believing that it will be a good way to share some stuff with you, and to keep you updated about what's going on with AxOS. So, let's start this journey together. I hope you will enjoy it.

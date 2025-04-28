@@ -11,6 +11,7 @@ image:
 snippet: So i would like to be clear about a point...
 publishDate: 2025-03-05 11:37
 category: Sleex
+slug: about-sleex-inspiration
 ---
 
 A lot of people are saying that i stole [end-4's rice](https://github.com/end-4/dots-hyprland/) to make sleex. 

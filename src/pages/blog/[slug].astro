@@ -6,11 +6,11 @@ import Layout from "@layouts/Layout.astro";
 import { getArticleReadingTime } from "@utils/blog";
 import { Icon } from "astro-icon/components";
 
-// Generate a new path for every collection post
+
 export async function getStaticPaths() {
 	const blogEntries = await getCollection("blog");
 	return blogEntries.map((post) => {
-		let slug = post.slug.substring(3);
+		let slug = post.slug;
 		return {
 			params: { slug: slug },
 			props: { post: post },
@@ -32,7 +32,7 @@ const readTime = getArticleReadingTime(post.body);
 	<Container>
 		<div class="mx-auto prose prose-lg dark:prose-invert mt-14">
 			<a
-				href={`/blog/category/${post.data.category?.toLowerCase()}`}
+				href={`/category/${post.data.category?.toLowerCase()}`}
 				class="text-blue-400 dark:text-stone-400 uppercase tracking-wider text-sm font-medium no-underline">
 				{post.data.category}
 			</a>
@@ -43,7 +43,7 @@ const readTime = getArticleReadingTime(post.body);
 				<div class="w-full md:w-auto flex flex-wrap gap-3">
 					{
 						post.data.tags.map((tag) => (
-							<a href={`/blog/tag/${tag?.toLowerCase()}`} class="text-sm text-gray-500 dark:text-stone-300">
+							<a href={`/tag/${tag?.toLowerCase()}`} class="text-sm text-gray-500 dark:text-stone-300">
 								#{tag}
 							</a>
 						))
