@@ -64,3 +64,25 @@ import Link from "@components/ui/link.astro";
 		</div>
 	</div>
 </div>
+
+
+<style>
+	@keyframes slide {
+		0% {
+			left: calc(50% - 70rem);
+			transform: rotate(0deg);
+		}
+		50% {
+			left: calc(50% - 30rem);
+			transform: rotate(-180deg);
+		}
+		100% {
+			left: calc(50% - 70rem);
+			transform: rotate(0deg);
+		}
+	}
+
+	.animate-slide {
+		animation: slide 25s infinite;
+	}
+</style>
