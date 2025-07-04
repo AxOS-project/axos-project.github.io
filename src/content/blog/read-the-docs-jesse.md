@@ -49,7 +49,7 @@ Fair critique if you don't use the latest ISO, because it got fixed. See ? Just 
 
 > It’s difficult to imagine how my trial with AxOS could have gone any worse, short of the laptop catching on fire or my identity being stolen.
 
-Welcome to the independant and on man developed distros :) Maybe you can be more constructive next time, so we can fix what's wrong.
+Welcome to the independant and one man developed distros :) Maybe you can be more constructive next time, so we can fix what's wrong.
 
 ---
 
