@@ -36,35 +36,47 @@ import Link from "@components/ui/link.astro";
 					To install AxOS, just select the image you need, right below!
 				</h3>
 
-			<div class="border-b-2 mt-6 p-10">
-				<p class="mt-6 text-lg leading-8 text-gray-900 dark:text-gray-100 pb-10">
-					Before you start, you could maybe make a donation to help us keep the project alive, and to help us improve it ♥️<br>
-				</p>
-				<p class="mb-6">
-					<Link href="https://www.paypal.com/donate/?hosted_button_id=HHPCNL6F7VSFY">
-						Click here to donate via PayPal
-					</Link>
-				</p>
-				<p>
-					<Link href="https://github.com/sponsors/AxOS-project">
-						Click here to donate via Github sponsors
-					</Link>
-				</p>
-			</div>
+				<div class="border-b-2 mt-6 p-10">
+					<p class="mt-6 text-lg leading-8 text-gray-900 dark:text-gray-100 pb-10">
+						Before you start, you could maybe make a donation to help us keep the project alive, and to help us improve it ♥️<br>
+					</p>
+					<p class="mb-6">
+						<Link href="https://www.paypal.com/donate/?hosted_button_id=HHPCNL6F7VSFY">
+							Click here to donate via PayPal
+						</Link>
+					</p>
+					<p>
+						<Link href="https://github.com/sponsors/AxOS-project">
+							Click here to donate via Github sponsors
+						</Link>
+					</p>
+				</div>
 
 
                 <div class="mt-6 p-10">
                     <p class="text-lg leading-8 text-gray-900 dark:text-gray-100 pb-10">
                         We strongly recommend you to read the <a class="font-bold underline" href="https://github.com/AxOS-project/AxOS/releases/latest">release notes</a> before installing AxOS, to take note of some potential warnings and important information regarding the installation process.
                     </p>
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div class="border border-gray-300 p-6 rounded">
                         <div class="text-center">
-                            <h4 class="text-xl font-semibold mb-4 dark:text-white">AxOS 25.06</h4>
-                            <Link href="https://dl.axos-project.com/AxOS-25.06-x86_64.iso">Download here</Link>
-                        </div>
-                        <div class="text-center">
-                            <h4 class="text-xl font-semibold mb-4 dark:text-white">AxOS 25.06 NVIDIA</h4>
-                            <Link href="https://dl.axos-project.com/AxOS-nvidia-25.06-x86_64.iso">Download here</Link>
+                            <h4 class="text-xl font-semibold mb-4 dark:text-white">AxOS 25.08</h4>
+							<div class="space-y-2">
+								<Link href="https://dl.axos-project.com/AxOS-25.08-x86_64.iso" class="block">Download here</Link>
+								<Link href="https://github.com/AxOS-project/AxOS/releases/latest" class="block">Release notes</Link>
+								<div class="flex justify-center mt-2">
+									<div class="flex items-center space-x-2">
+										<a id="sha-text" class="text-sm font-mono text-gray-600 dark:text-gray-300 cursor-text select-all">
+											b045a2...d9daaa
+										</a>
+										<button
+											onclick="navigator.clipboard.writeText('b045a20ea506b97620cf06a5c8bdcdc2d7f01b2e5e347f655f788d6fcfd9daaa')"
+											class="text-xs px-2 py-1 border rounded hover:bg-gray-200 dark:hover:bg-gray-700 transition text-gray-600 dark:text-gray-300"
+										>
+											Copy
+										</button>
+									</div>
+								</div>							
+							</div>
                         </div>
                     </div>
                 </div>
