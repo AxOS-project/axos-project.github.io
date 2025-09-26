@@ -16,8 +16,6 @@ category: Sleex
 slug: fht-compositor
 ---
 
-Recently, I was searching for a new WM/compositor for sleex. My searches leant to a compositor called . This is basically a rust replacement of hyprland. But why would I switch to it ? 
-
 Recently, I went down the rabbit hole looking for a new WM/compositor for Sleex. That’s when I stumbled on [fht-compositor](https://nferhat.github.io/fht-compositor/). At first glance, it feels like a Rust-powered reimagining of Hyprland. But why would I even consider switching?
 
 # The problems of Hyprland
