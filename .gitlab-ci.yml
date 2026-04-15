@@ -14,8 +14,8 @@ pages:
     - mv dist public
 
     - mkdir -p public/axmirrors
-    - cp -r vendor/axmirrors/* public/axmirrors/
-    - rm -rf public/axmirrors/.git
+    - cp -r vendor/axmirrors/* public/AxMirrors/
+    - rm -rf public/AxMirrors/.git
   
   artifacts:
     paths:
