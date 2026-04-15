@@ -1,16 +1,22 @@
 image: node:lts
 
-cache:
-  paths:
-    - .npm/
+variables:
+  GIT_SUBMODULE_STRATEGY: none
 
 pages:
   stage: deploy
   script:
-    - npm ci --cache .npm --prefer-offline
+    - git submodule update --init --depth 1 vendor/axmirrors
+
+    - npm ci
     - npm run build
     - rm -rf public
     - mv dist public
+
+    - mkdir -p public/axmirrors
+    - cp -r vendor/axmirrors/* public/axmirrors/
+    - rm -rf public/axmirrors/.git
+  
   artifacts:
     paths:
       - public
