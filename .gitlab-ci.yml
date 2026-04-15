@@ -13,7 +13,7 @@ pages:
     - rm -rf public
     - mv dist public
 
-    - mkdir -p public/axmirrors
+    - mkdir -p public/AxMirrors
     - cp -r vendor/axmirrors/* public/AxMirrors/
     - rm -rf public/AxMirrors/.git
   
