@@ -25,7 +25,7 @@ Because it downloads the latest packages to build a clean and up-to-date system 
 
 > Both snapshots provided unhelpful error messages when attempting to boot in Legacy BIOS mode
 
-Did you even glance at the docs or ask *anyone* ? Because it is said [here](https://www.axos-project.com/docs/reference/issues/#cant-boot-devdiskby-label-device-did-not-show-up-after-30-seconds) and [here](https://www.axos-project.com/docs/get-started/installation/#recommended). No need for an IT master degree to open the known issues and prerequisites of the documentation.
+Did you even glance at the docs or ask *anyone* ? Because it is said [here](https://docs.axos-project.com/reference/issues/#cant-boot-devdiskby-label-device-did-not-show-up-after-30-seconds) and [here](https://docs.axos-project.com/get-started/installation/#recommended). No need for an IT master degree to open the known issues and prerequisites of the documentation.
 
 > Once I'd waded through all of that, the end result was an operating system which wouldn't even boot
 
@@ -41,7 +41,7 @@ There is no default password. And why would you need it, you're supposed to land
 
 > I found that the error only occurred when my laptop was set to boot in Legacy BIOS mode
 
- Back to [here](https://www.axos-project.com/docs/reference/issues/#cant-boot-devdiskby-label-device-did-not-show-up-after-30-seconds) and [here](https://www.axos-project.com/docs/get-started/installation/#recommended). 
+ Back to [here](https://docs.axos-project.com/reference/issues/#cant-boot-devdiskby-label-device-did-not-show-up-after-30-seconds) and [here](https://docs.axos-project.com/get-started/installation/#recommended). 
 
 > The theme failed to load because QtMultimedia is not installed
 
