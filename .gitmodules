@@ -1,0 +1,3 @@
+[submodule "vendor/axmirrors"]
+	path = vendor/axmirrors
+	url = https://gitlab.com/axos-project/axmirrors.git
