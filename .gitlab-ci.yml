@@ -6,16 +6,10 @@ variables:
 pages:
   stage: deploy
   script:
-    - git submodule update --init --depth 1 vendor/axmirrors
-
     - npm ci
     - npm run build
     - rm -rf public
     - mv dist public
-
-    - mkdir -p public/AxMirrors
-    - cp -r vendor/axmirrors/* public/AxMirrors/
-    - rm -rf public/AxMirrors/.git
   
   artifacts:
     paths:
