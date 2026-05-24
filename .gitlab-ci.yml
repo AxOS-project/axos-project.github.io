@@ -1,12 +1,12 @@
 image: node:lts
 
 variables:
-  GIT_SUBMODULE_STRATEGY: none
   npm_config_fetch_retry_maxtimeout: 600000
 
 pages:
   stage: deploy
   script:
+    -- git submodule update --init --remote --recursive
     - npm ci
     - npm run build
     - rm -rf public
