@@ -10,7 +10,7 @@ pages:
     - npm run build
     - rm -rf public
     - mv dist public
-  
+    - cp -r AxMirrors public  
   artifacts:
     paths:
       - public
