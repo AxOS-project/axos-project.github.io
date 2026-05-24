@@ -6,7 +6,7 @@ variables:
 pages:
   stage: deploy
   script:
-    -- git submodule update --init --remote --recursive
+    - git submodule update --init --remote --recursive
     - npm ci
     - npm run build
     - rm -rf public
