@@ -3,8 +3,8 @@ local_backend: true
 logo_url: /logo.svg
 
 backend:
-    name: "gitlab"
-    repo: axos-project/axos-project.gitlab.io
+    name: "github"
+    repo: axos-project/axos-project.github.io
     branch: main
     base_url: https://www.axos-project.com
     automatic_deployments: true
