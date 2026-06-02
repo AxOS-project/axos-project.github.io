@@ -1,5 +1,10 @@
 ---
 import { Icon } from "astro-icon/components";
+import {getRelativeLocaleUrl} from "astro:i18n"; 
+const currentLang= Astro.currentLocale || 'en' ;
+import {langagelist} from "i18n/ui";
+import {useTranslations} from "i18n/util";
+const translateLabels = useTranslations(currentLang as keyof typeof langagelist);
 ---
 
 <div
@@ -34,8 +39,8 @@ import { Icon } from "astro-icon/components";
 		x-model="theme"
 		aria-label="Choose a theme"
 		@change="switchTheme($event.target.value)">
-		<option value="system">System</option>
-		<option value="dark">Dark</option>
-		<option value="light">Light</option>
+		<option value="system">{translateLabels("color.def")}</option> <!--Now these elements are translated automatically -->
+		<option value="dark">{translateLabels("color.d")}</option>
+		<option value="light">{translateLabels("color.w")}</option>
 	</select>
 </div>

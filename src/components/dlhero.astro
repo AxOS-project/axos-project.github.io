@@ -2,6 +2,11 @@
 
 import Link from "@components/ui/link.astro";
 
+import {getRelativeLocaleUrl} from "astro:i18n"; 
+const currentLang= Astro.currentLocale || 'en' ;	//all commands to replace the literals (text)
+import {langagelist} from "i18n/ui";
+import {useTranslations} from "i18n/util";
+const translateLabels = useTranslations(currentLang as keyof typeof langagelist);
 ---
 
 <div class="relative isolate pt-14 dark:bg-stone-950">
@@ -31,18 +36,18 @@ import Link from "@components/ui/link.astro";
 	<div class="sm:pt-10 ">
 		<div class="mx-auto max-w-7xl">
 			<div class="mx-auto max-w-2xl text-center">
-				<h1 class="text-4xl font-bold tracking-tight text-black dark:text-white sm:text-6xl">Are you ready ?</h1>
+				<h1 class="text-4xl font-bold tracking-tight text-black dark:text-white sm:text-6xl">{translateLabels("dwn.title")}</h1>
 				<h3 class="text-2xl font-bold mt-6 text-lg leading-8 text-gray-900 dark:text-gray-100">
-					To install AxOS, just select the image you need, right below!
+					{translateLabels("dwn.mid")}
 				</h3>
 
 				<div class="border-b-2 mt-6 p-10">
 					<p class="mt-6 text-lg leading-8 text-gray-900 dark:text-gray-100 pb-10">
-						Before you start, you could maybe make a donation to help us keep the project alive, and to help us improve it ♥️<br>
+						{translateLabels("dwn.bf")} ♥️<br>
 					</p>
 					<p class="mb-6">
 						<Link href="https://www.paypal.com/donate/?hosted_button_id=HHPCNL6F7VSFY">
-							Click here to donate via PayPal
+							{translateLabels("dwn.pypl")}
 						</Link>
 					</p>
 				</div>
@@ -53,8 +58,8 @@ import Link from "@components/ui/link.astro";
                         <div class="text-center">
                             <h4 class="text-xl font-semibold mb-4 dark:text-white">AxOS 25.08</h4>
 							<div class="space-y-2">
-								<Link href="https://dl.axos-project.com/AxOS-25.08-1-x86_64.iso" class="block">Download here</Link>
-								<Link href="https://github.com/AxOS-project/AxOS/releases/latest" class="block">Release notes</Link>
+								<Link href="https://dl.axos-project.com/AxOS-25.08-1-x86_64.iso" class="block">{translateLabels("dwn.dwnbtn")}</Link>
+								<Link href="https://gitlab.com/AxOS-project/AxOS/-/releases/latest" class="block">{translateLabels("dwn.rlsn")}</Link>
 								<div class="flex justify-center mt-2">
 									<div class="flex items-center space-x-2">
 										<a id="sha-text" class="text-sm font-mono text-gray-600 dark:text-gray-300 cursor-text select-all">
@@ -64,7 +69,7 @@ import Link from "@components/ui/link.astro";
 											onclick="navigator.clipboard.writeText('334c1b987a33e413c1675f1242f8d38ce83d3f63c19eb13bcbad5329330df197')"
 											class="text-xs px-2 py-1 border rounded hover:bg-gray-200 dark:hover:bg-gray-700 transition text-gray-600 dark:text-gray-300"
 										>
-											Copy
+											{translateLabels("dwn.copy")}
 										</button>
 									</div>
 								</div>							

@@ -9,7 +9,18 @@ import AstroPWA from "@vite-pwa/astro";
 import icon from "astro-icon";
 
 // https://astro.build/config
-export default defineConfig({
+import { defineConfig } from "astro/config"
+
+	export default defineConfig({
+  i18n:{
+	defaultLocale:'en',
+	locales:['es','en'],
+	routing:{
+		prefixDefaultLocale:true,
+	}
+  },
+
+
 	site: "https://www.axos-project.com",
 	vite: {
 		define: {

@@ -1,7 +1,15 @@
 ---
+
 import Button from "@components/ui/button.astro";
 import Link from "@components/ui/link.astro";
 import { Icon } from "astro-icon/components";
+
+
+import {getRelativeLocaleUrl} from "astro:i18n"; 	//to get the language url and back with that same url
+const currentLang= Astro.currentLocale || 'es' ;
+import {langagelist} from "i18n/ui";
+import {useTranslations} from "i18n/util";
+const translateLabels = useTranslations(currentLang as keyof typeof langagelist); //for text translation
 
 interface MenuItem {
 	title: string;
@@ -9,24 +17,28 @@ interface MenuItem {
 	children?: MenuItem[];
 }
 
-export const menuitems: MenuItem[] = [
-	{
-		title: "Docs",
-		path: "https://docs.axos-project.com",
-	},
-	{
-		title: "Blog",
-		path: "/blog",
-	},
-	{
-		title: "Discord",
-		path: "https://discord.gg/xQdtDBFmsy",
-	},
-	{
-		title: 'Github',
-		path: 'https://github.com/AxOS-project/'
-	}
-];
+// export const menuitems: MenuItem[] = [
+// 	{
+// 		title: "Docs",
+// 		path: "/docs",
+// 	},
+// 	{
+// 		title: "Blog",
+// 		path: "/en/blog",
+		
+// 	},
+// 	{
+// 		title: "Discord",
+// 		path: "https://discord.gg/xQdtDBFmsy",
+// 	},
+// 	{
+// 		title: 'Github',
+// 		path: 'http://git.axos-project.com/'
+// 	},
+	
+
+	
+// ];
 ---
 
 <div
@@ -34,7 +46,7 @@ export const menuitems: MenuItem[] = [
 	class="flex flex-col max-w-screen-xl px-4 mx-auto md:items-center md:justify-between md:flex-row md:px-6 lg:px-8 z-10 md:pt-2 relative">
 	<div class="p-4 flex flex-row items-center justify-between">
 		<a
-			href="/"
+			href={getRelativeLocaleUrl(currentLang, "/")}
 			class="flex gap-3 items-center text-lg font-semibold tracking-widest text-gray-900 uppercase rounded-lg dark:text-white focus:outline-none focus:shadow-outline">
 			<!-- <Icon name="logo" width="30" /> -->
 			AxOS
@@ -50,8 +62,11 @@ export const menuitems: MenuItem[] = [
 		x-transition:leave-start="opacity-100 transform scale-100"
 		x-transition:leave-end="opacity-0 transform scale-90"
 		class="md:mt-0 lg:pl-8 md:items-center flex-grow pb-4 md:pb-0 flex-col gap-2 transition-all ease-out md:transition-none md:justify-center md:flex-row hidden">
-		<div class="flex flex-col flex-grow text-center gap-2 md:justify-center md:items-center md:flex md:flex-row md:mx-auto">
-			{
+
+		<!-- <div class="flex flex-col flex-grow text-center gap-2 md:justify-center md:items-center md:flex md:flex-row md:mx-auto">  //this code i useless now, so i replaced it with an easier to work items,
+		 																																//i wasn't able to redirect with the currentLang const because of the way the navbar an footer shares the same items.
+		 																																// Any ways, same class and styles have been applied to the new ones, so it must work exactly as it was.
+			{	
 				menuitems.map((item) =>
 						<Link
 							href={item.path}
@@ -62,10 +77,38 @@ export const menuitems: MenuItem[] = [
 						</Link>
 				)
 			}
-		</div>
+			</div> -->
+		<div class="flex flex-col flex-grow text-center gap-2 md:justify-center md:items-center md:flex md:flex-row md:mx-auto">
+		
+			<Link href="https://docs.axos-project.com/" class="" style="hover">
+				{translateLabels("hero.docs")}
+			</Link>
+		
+			<Link href={getRelativeLocaleUrl(currentLang, "/blog")} class="" style="hover">
+				Blogs <!--No translation neeeded, both es and en uses the same word -->
+			</Link>
+		
+			<Link href="https://discord.gg/xQdtDBFmsy" class="" style="hover">
+				Discord <!--No translation neeeded -->
+			</Link>
+			<Link href="https://github.com/AxOS-project/" class="" style="hover">
+				Github <!--No translation neeeded, both es and en uses the same word -->
+			</Link>
+			
+			
+			</div>
+			
+			<!--language switch-->
+			<Link href="/es" class="" style="hover">
+				Español 
+			</Link>
+			<Link href="/en" class="" style="hover">
+				English 
+			</Link>
+
 		<div class="mt-4 md:mt-0 flex flex-col md:flex-row gap-4">
-			<Link href="/download" class="md:px-3 md:py-2 leading-6">
-				Download AxOS
+			<Link href={getRelativeLocaleUrl(currentLang, "/download")} class="md:px-3 md:py-2 leading-6">
+				{translateLabels("navbar.downloadbtn")}
 			</Link>
 		</div>
 	</nav>

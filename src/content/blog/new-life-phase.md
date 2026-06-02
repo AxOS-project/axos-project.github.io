@@ -12,6 +12,7 @@ snippet: It’s no secret that passion drives open-source projects...
 publishDate: 2026-01-19 10:34
 category: Miscellaneous
 slug: new-life-phase
+lang : "es"
 ---
 
 Hey AxOS community,

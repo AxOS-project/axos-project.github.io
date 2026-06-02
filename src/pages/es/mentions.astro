@@ -1,0 +1,66 @@
+---
+import Container from "@components/container.astro";
+import Layout from "@layouts/Layout.astro";
+
+import {getRelativeLocaleUrl} from "astro:i18n"; 
+const currentLang= Astro.currentLocale || 'en' ;
+import {langagelist} from "../../i18n/ui";
+import {useTranslations} from "../../i18n/util";
+const translateLabels = useTranslations(currentLang as keyof typeof langagelist);
+
+---
+
+<Layout title="Aviso Legal - AxOS">
+  <Container>
+    <div class="mx-auto prose prose-lg dark:prose-invert mt-14 dark:text-gray-200 prose-p:text-justify prose-headings:text-center">
+      <h1>Aviso Legal</h1>
+
+      <h2>Publicacion del Sitio</h2>
+      <p>
+        El sitio Web de <strong>AxOS</strong> es publicado como parte del proyecto de AxOS.  
+        Gestor de Publicaciones: <em>Adrian Arjoca</em>, Conocido como <em>Ardox</em>.  
+        Contacto: <a href="mailto:ardox@axos-project.com">ardox@axos-project.com</a>
+      </p>
+
+      <h2>Alojamiento</h2>
+      <p>
+        Este sitio se encuentra alojado por:  
+        <br /> <strong>Gitlab Pages</strong>  
+        Gitlab, Inc., 268 Bush Street #350 San Francisco, CA 94104-3503, USA.
+        <br /> <a href="https://docs.gitlab.com/user/project/pages/">https://docs.gitlab.com/user/project/pages/</a>.
+        <br /> El almacenamiento de grandes archivos son provistos por un VPS del servicio. 
+        <a href="https://datalix.eu">datalix.io</a>.
+      </p>
+
+      <h2>Propiedad Intelectual</h2>
+      <p>
+       
+        A menos que se establezca de otra forma, todo el contenido (textos, imágenes, código fuente) en el Sitio Web de <strong>AxOS</strong>, o los repositorios de gitlab son distribuidos bajo la licencia de software libre.
+         <a href={getRelativeLocaleUrl(currentLang, "/licence")}>GNU Licencia Publica General v3</a>.
+      </p>
+
+      <h2>Advertencia</h2>
+      <p>
+        La información provista por este sitio es únicamente para propósitos de información general.
+        El editor no se hace responsable de errores u omisiones.
+        El uso del sitio es bajo el propio riesgo del usuario.
+        
+      </p>
+
+      <h2>Datos Personales</h2>
+      <p>
+        Los datos personales no son recolectados sin el conocimiento del usuario.  
+        El sitio no usa cookies con fines publicitarios.
+        Conforme a la regulación General de protección de datos (GDPR), los usuarios tienen el derecho en acceder, modificar, y eliminar sus datos personales.
+        Debido que el sitio no recolecta ningún dato personal, no existen datos que se puedan acceder, modificar o eliminar. 
+      </p>
+
+      <h2>Contacto</h2>
+      <p>
+        Ante cualquier duda, puedes contactar con el dueño del sitio web al:
+        <a href="mailto:ardox@axos-project.com">ardox@axos-project.com</a>
+        <br />La dirección postal puede ser solicitada a través de correo electrónico.
+      </p>
+    </div>
+  </Container>
+</Layout>
