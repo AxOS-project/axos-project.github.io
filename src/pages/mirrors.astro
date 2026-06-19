@@ -7,71 +7,128 @@ import Container from '../components/container.astro';
 <Layout title="AxOS Mirrors">
   <Container>
     <Sectionhead>
-      <h1 class="text-4xl font-bold tracking-tight text-black dark:text-white sm:text-6xl">AxOS package repository</h1>
+      <Fragment slot="title">AxOS package repository</Fragment>
+      <Fragment slot="desc">AxOS Official Packages</Fragment>
     </Sectionhead>
 
-    <div class="mt-8 max-w-4xl mx-auto">
-      <div id="breadcrumb" class="mb-4 text-slate-400 font-mono text-sm font-bold bg-slate-900 p-2 rounded border border-slate-800">/</div>
+    <div class="mt-12 max-w-7xl mx-auto">
+      <div id="breadcrumb" class="mb-6 flex flex-wrap gap-2 text-lg font-medium text-slate-300">
+        <button data-path="" class="hover:text-white transition">Index</button>
+      </div>
       
-      <div class="bg-slate-900 border border-slate-800 rounded-lg p-4 min-h-[300px]">
-        <ul id="explorer-list" class="space-y-2 font-mono text-sm">
-        </ul>
+      <div class="w-full">
+        <div class="flex text-sm text-slate-500 uppercase tracking-wider pb-2 border-b border-slate-800/50 mb-2">
+          <div class="w-7/12">Name</div>
+          <div class="w-3/12 text-right">Size</div>
+          <div class="w-2/12 text-right"></div>
+        </div>
+        <div id="explorer-list" class="flex flex-col">
+        </div>
       </div>
     </div>
   </Container>
+</Layout>
 
-  <script>
-    const workerUrl = "https://axmirror-api.adrian-arjoca18.workers.dev";
-    const r2PublicUrl = "https://mirrors.axos-project.com"; 
-    const listEl = document.getElementById('explorer-list');
-    const breadcrumbEl = document.getElementById('breadcrumb');
+<script>
+  const workerUrl = "https://axmirror-api.adrian-arjoca18.workers.dev";
+  const r2PublicUrl = "https://mirrors.axos-project.com";
+  const listEl = document.getElementById('explorer-list');
+  const breadcrumbEl = document.getElementById('breadcrumb');
+
+  function formatSize(bytes) {
+      if (bytes === 0) return '0 B';
+      const k = 1024;
+      const sizes = ['B', 'KB', 'MB', 'GB', 'TB'];
+      const i = Math.floor(Math.log(bytes) / Math.log(k));
+      return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
+    }
 
     async function loadDirectory(prefix = "") {
-      listEl.innerHTML = "<li class='text-slate-400'>Chargement de l'arborescence...</li>";
+      listEl.innerHTML = "<div class='py-8 text-center text-slate-500 animate-pulse'>Loading mirror...</div>";
       
       try {
         const res = await fetch(`${workerUrl}?prefix=${encodeURIComponent(prefix)}`);
         const data = await res.json();
         
         listEl.innerHTML = "";
-        breadcrumbEl.textContent = "/" + prefix;
+        
+        const pathParts = prefix.split('/').filter(Boolean);
+        let breadcrumbHtml = `<button data-path="" class="hover:text-white transition">Index</button>`;
+        let currentPath = "";
+        
+        pathParts.forEach((part) => {
+          currentPath += part + "/";
+          breadcrumbHtml += `<span class="text-slate-600">/</span><button data-path="${currentPath}" class="hover:text-white transition">${part}</button>`;
+        });
+        
+        breadcrumbEl.innerHTML = breadcrumbHtml;
+
+        const breadcrumbLinks = breadcrumbEl.querySelectorAll('button');
+        breadcrumbLinks.forEach(link => {
+          link.addEventListener('click', (e) => {
+            e.preventDefault();
+            loadDirectory(e.currentTarget.dataset.path);
+          });
+        });
 
         if (prefix !== "") {
           const parts = prefix.split('/').filter(p => p);
           parts.pop();
           const parentPrefix = parts.length > 0 ? parts.join('/') + '/' : '';
           
-          const backLi = document.createElement('li');
-          backLi.innerHTML = `<a href="#" class="text-blue-400 hover:text-blue-300 transition">📁 .. (Retour)</a>`;
-          backLi.onclick = (e) => { e.preventDefault(); loadDirectory(parentPrefix); };
-          listEl.appendChild(backLi);
+          const row = document.createElement('div');
+          row.className = "flex items-center py-3 hover:bg-slate-800/20 transition-colors cursor-pointer border-b border-slate-800/30";
+          row.innerHTML = `
+            <div class="w-7/12 flex items-center gap-3 text-slate-400 hover:text-slate-200">
+              <svg class="w-5 h-5 text-slate-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 10h10a8 8 0 018 8v2M3 10l6 6m-6-6l6-6"></path></svg>
+              <span class="font-medium">Retour</span>
+            </div>
+            <div class="w-3/12 text-right text-slate-600">-</div>
+            <div class="w-2/12 text-right"></div>
+          `;
+          row.onclick = () => loadDirectory(parentPrefix);
+          listEl.appendChild(row);
         }
 
         data.delimitedPrefixes.forEach(dir => {
-          const li = document.createElement('li');
           const folderName = dir.split('/').filter(Boolean).pop();
-          li.innerHTML = `<a href="#" class="text-blue-400 hover:text-blue-300 transition">📁 ${folderName}/</a>`;
-          li.onclick = (e) => { e.preventDefault(); loadDirectory(dir); };
-          listEl.appendChild(li);
+          const row = document.createElement('div');
+          row.className = "flex items-center py-3 hover:bg-slate-800/20 transition-colors cursor-pointer border-b border-slate-800/30 group";
+          row.innerHTML = `
+            <div class="w-7/12 flex items-center gap-3 text-slate-300 group-hover:text-white">
+              <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"><path d="M2 6a2 2 0 012-2h5l2 2h5a2 2 0 012 2v6a2 2 0 01-2 2H4a2 2 0 01-2-2V6z"></path></svg>
+              <span class="font-medium">${folderName}</span>
+            </div>
+            <div class="w-3/12 text-right text-slate-600">-</div>
+            <div class="w-2/12 text-right"></div>
+          `;
+          row.onclick = () => loadDirectory(dir);
+          listEl.appendChild(row);
         });
 
         data.objects.forEach(file => {
-          const li = document.createElement('li');
           const fileName = file.key.split('/').pop();
-          const sizeMB = (file.size / (1024 * 1024)).toFixed(2);
-          li.innerHTML = `<a href="${r2PublicUrl}/${file.key}" class="text-emerald-400 hover:text-emerald-300 transition" target="_blank">📄 ${fileName}</a> <span class="text-slate-500 text-xs ml-2">${sizeMB} MB</span>`;
-          listEl.appendChild(li);
+          const sizeStr = formatSize(file.size);
+          const row = document.createElement('div');
+          row.className = "flex items-center py-3 hover:bg-slate-800/20 transition-colors border-b border-slate-800/30 group";
+          row.innerHTML = `
+            <div class="w-7/12 flex items-center gap-3">
+              <svg class="w-5 h-5 text-slate-300 group-hover:text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z"></path></svg>
+              <a href="${r2PublicUrl}/${file.key}" target="_blank" class="font-medium text-slate-300 group-hover:text-white transition-colors truncate">${fileName}</a>
+            </div>
+            <div class="w-3/12 text-right text-slate-400 font-mono text-sm">${sizeStr}</div>
+          `;
+          listEl.appendChild(row);
         });
 
         if (data.delimitedPrefixes.length === 0 && data.objects.length === 0) {
-          listEl.innerHTML = "<li class='text-slate-500 italic'>Dossier vide</li>";
+          listEl.innerHTML = "<div class='py-8 text-center text-slate-600 italic'>Empty folder</div>";
         }
 
       } catch (err) {
-        listEl.innerHTML = "<li class='text-red-500'>Impossible de joindre le miroir.</li>";
+        listEl.innerHTML = "<div class='py-8 text-center text-red-500'>Cannot access the repository.: " + err + "</div>";
       }
     }
 
-    loadDirectory("");
-  </script>
-</Layout>
+  loadDirectory('');
+</script>
