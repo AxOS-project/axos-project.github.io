@@ -32,7 +32,7 @@ export default {
         },
       });
     } catch (e) {
-      return new Response("Erreur", { status: 500, headers: corsHeaders });
+      return new Response(e.message, { status: 500, headers: corsHeaders });
     }
   },
 };

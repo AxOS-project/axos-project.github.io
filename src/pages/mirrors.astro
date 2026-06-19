@@ -1,0 +1,77 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Sectionhead from '../components/sectionhead.astro';
+import Container from '../components/container.astro';
+---
+
+<Layout title="AxOS Mirrors">
+  <Container>
+    <Sectionhead>
+      <h1 class="text-4xl font-bold tracking-tight text-black dark:text-white sm:text-6xl">AxOS package repository</h1>
+    </Sectionhead>
+
+    <div class="mt-8 max-w-4xl mx-auto">
+      <div id="breadcrumb" class="mb-4 text-slate-400 font-mono text-sm font-bold bg-slate-900 p-2 rounded border border-slate-800">/</div>
+      
+      <div class="bg-slate-900 border border-slate-800 rounded-lg p-4 min-h-[300px]">
+        <ul id="explorer-list" class="space-y-2 font-mono text-sm">
+        </ul>
+      </div>
+    </div>
+  </Container>
+
+  <script>
+    const workerUrl = "https://axmirror-api.adrian-arjoca18.workers.dev";
+    const r2PublicUrl = "https://mirrors.axos-project.com"; 
+    const listEl = document.getElementById('explorer-list');
+    const breadcrumbEl = document.getElementById('breadcrumb');
+
+    async function loadDirectory(prefix = "") {
+      listEl.innerHTML = "<li class='text-slate-400'>Chargement de l'arborescence...</li>";
+      
+      try {
+        const res = await fetch(`${workerUrl}?prefix=${encodeURIComponent(prefix)}`);
+        const data = await res.json();
+        
+        listEl.innerHTML = "";
+        breadcrumbEl.textContent = "/" + prefix;
+
+        if (prefix !== "") {
+          const parts = prefix.split('/').filter(p => p);
+          parts.pop();
+          const parentPrefix = parts.length > 0 ? parts.join('/') + '/' : '';
+          
+          const backLi = document.createElement('li');
+          backLi.innerHTML = `<a href="#" class="text-blue-400 hover:text-blue-300 transition">📁 .. (Retour)</a>`;
+          backLi.onclick = (e) => { e.preventDefault(); loadDirectory(parentPrefix); };
+          listEl.appendChild(backLi);
+        }
+
+        data.delimitedPrefixes.forEach(dir => {
+          const li = document.createElement('li');
+          const folderName = dir.split('/').filter(Boolean).pop();
+          li.innerHTML = `<a href="#" class="text-blue-400 hover:text-blue-300 transition">📁 ${folderName}/</a>`;
+          li.onclick = (e) => { e.preventDefault(); loadDirectory(dir); };
+          listEl.appendChild(li);
+        });
+
+        data.objects.forEach(file => {
+          const li = document.createElement('li');
+          const fileName = file.key.split('/').pop();
+          const sizeMB = (file.size / (1024 * 1024)).toFixed(2);
+          li.innerHTML = `<a href="${r2PublicUrl}/${file.key}" class="text-emerald-400 hover:text-emerald-300 transition" target="_blank">📄 ${fileName}</a> <span class="text-slate-500 text-xs ml-2">${sizeMB} MB</span>`;
+          listEl.appendChild(li);
+        });
+
+        if (data.delimitedPrefixes.length === 0 && data.objects.length === 0) {
+          listEl.innerHTML = "<li class='text-slate-500 italic'>Dossier vide</li>";
+        }
+
+      } catch (err) {
+        listEl.innerHTML = "<li class='text-red-500'>Impossible de joindre le miroir.</li>";
+      }
+    }
+
+    loadDirectory("");
+  </script>
+</Layout>
