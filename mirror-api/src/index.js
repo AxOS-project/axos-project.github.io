@@ -20,7 +20,7 @@ export default {
     const prefix = url.searchParams.get("prefix") || "";
 
     try {
-      const listing = await env.AXOS_MIRROR.list({
+      const listing = await env.AXMIRRORS.list({
         prefix: prefix,
         delimiter: "/",
       });
