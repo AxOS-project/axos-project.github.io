@@ -1,9 +1,13 @@
 ---
+import {getRelativeLocaleUrl} from "astro:i18n"; //obtain the actual url - used to keep the language while browsing the website.
+const currentLang= Astro.currentLocale || 'en' ;
+import {langagelist} from "i18n/ui";//all the labels (stirngs) translated
+
 import { ViewTransitions } from "astro:transitions";
 import { pwaInfo } from "virtual:pwa-info";
 import Footer from "@components/footer.astro";
 import Navbar from "@components/navbar/navbar.astro";
-import "@fontsource-variable/inter";
+//import "@fontsource-variable/inter";
 import { SEO } from "astro-seo";
 export interface Props {
 	title?: string;
@@ -17,7 +21,7 @@ const resolvedImageWithDomain = new URL(
 	Astro.site,
 ).toString();
 
-const { title, lang = null } = Astro.props;
+const { title, lang = {currentLang} } = Astro.props;
 
 const makeTitle = title
 	? `${title} | AxOS`
@@ -25,7 +29,7 @@ const makeTitle = title
 ---
 
 <!doctype html>
-<html lang="en">
+<html lang={currentLang}>
 	<head>
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width" />

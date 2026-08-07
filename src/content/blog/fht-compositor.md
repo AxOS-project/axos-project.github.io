@@ -2,6 +2,7 @@
 title: Why I’m Eyeing FHT-Compositor as a Hyprland Alternative for Sleex
 draft: false
 author: Ardox
+
 tags:
   - Sleex
   - Desktops
@@ -14,7 +15,9 @@ snippet: Could this be the end of the sleex hyprland era ?...
 publishDate: 2025-09-26 11:42
 category: Sleex
 slug: fht-compositor
+lang : 'es'
 ---
+
 
 Recently, I went down the rabbit hole looking for a new WM/compositor for Sleex. That’s when I stumbled on [fht-compositor](https://nferhat.github.io/fht-compositor/). At first glance, it feels like a Rust-powered reimagining of Hyprland. But why would I even consider switching?
 

@@ -1,4 +1,14 @@
 ---
+
+
+import {getRelativeLocaleUrl} from "astro:i18n"; 	//to get the language url and back with that same url
+const currentLang= Astro.currentLocale || 'es' ;
+import {langagelist} from "i18n/ui";
+import {useTranslations} from "i18n/util";
+const translateLabels = useTranslations(currentLang as keyof typeof langagelist); //for text translation
+
+
+
 import Link from "@components/ui/link.astro";
 import { Icon } from "astro-icon/components";
 
@@ -13,8 +23,8 @@ export interface Props {
 const {
 	prevUrl,
 	nextUrl,
-	prevText = "blog.prev",
-	nextText = "blog.next",
+	prevText = translateLabels("blg.prv"),  //Previous text showed 'previous.next' to the user, but now it correctly displays "next/previos or siguiente/anterior if it's on the Spanish verison"
+	nextText = translateLabels("blg.nxt"),
 	class: className,
 } = Astro.props;
 ---

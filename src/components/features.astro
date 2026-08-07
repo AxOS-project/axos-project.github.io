@@ -1,37 +1,46 @@
 ---
 import Link from "@components/ui/link.astro";
-// @ts-ignore
+// @ts-ignore //<----I didn't place this ts ignore here, not sure what it does.
 import { Icon } from "astro-icon/components";
 
-const features = [
+
+
+import {getRelativeLocaleUrl} from "astro:i18n"; 
+const currentLang= Astro.currentLocale || 'en' ;
+import {langagelist} from "i18n/ui";
+import {useTranslations} from "i18n/util";
+const translateLabels = useTranslations(currentLang as keyof typeof langagelist);
+
+
+const features = [ //all titles and description are replaced by this method, it checks the url, and it loads the labels needed for each language.
 	{
-		title: "Beautiful",
-		description: "One of the priorities of AxOS is beauty and modernity.",
+		title: translateLabels("features.B"),
+		description: translateLabels("features.Beautiful"),
 		icon: "bx:bxs-palette",
 	},
 	{
-		title: "Powerful",
-		description: "AxOS has a minimal desktop environment to focus on power and lightness.",
+		title: translateLabels("features.PWFL"),
+		description: translateLabels("features.power"),
 		icon: "bx:bxs-bolt",
 	},
 	{
-		title: "Private",
-		description: "Absolutely no data is shared with the AxOS maintainers or any third parties.",
+		title: translateLabels("features.PR"),
+		description: translateLabels("features.private"),
 		icon: "bx:bxs-shield",
 	},
 	{
-		title: "Complete",
-		description: "AxOS's package manager, Epsilon, can find any packages in the AUR and the official Arch Linux repositories.",
+		title: translateLabels("features.C"),
+		description: translateLabels("features.Complete"),
 		icon: "bx:bxs-file-find",
 	},
 	{
-		title: "Independent",
-		description: "AxOS is an independent project; there is no organization behind it.",
+		title: translateLabels("features.I"),
+		description: translateLabels("features.Independent"),
 		icon: "bx:bxs-user",
 	},
 	{
-		title: "Fully Customizable",
-		description: "Every aspect of the system can be customized, from the appearance to the system itself.",
+		title: translateLabels("features.Cstm"),
+		description: translateLabels("features.Custom"),
 		icon: "bx:bxs-user",
 	},
 ];
