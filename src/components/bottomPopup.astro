@@ -1,0 +1,15 @@
+<div
+	id="bottom-popup"
+	aria-live="polite"
+	class="fixed bottom-4 left-1/2 z-50 flex max-w-[min(92vw,42rem)] -translate-x-1/2 items-center gap-4 rounded-full bg-black border border-white/20 px-4 py-[0.9rem] text-white shadow-[0_10px_30px_rgba(0,0,0,0.25)]"
+>
+	<p class="m-0 text-sm leading-6">Also try <a href="https://kira-linux.com/" class="text-purple-400 hover:text-purple-300" target="_blank" rel="noopener noreferrer">Kira Linux</a>.</p>
+	<button
+		class="inline-flex h-8 w-8 items-center justify-center rounded-full border-0 bg-white/10 text-inherit text-xl leading-none cursor-pointer hover:bg-white/20"
+		type="button"
+		aria-label="Close popup"
+		onclick="this.closest('#bottom-popup')?.remove()"
+	>
+		×
+	</button>
+</div>
