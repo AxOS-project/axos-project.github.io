@@ -1,7 +1,40 @@
 ---
-
 import Link from "@components/ui/link.astro";
+import { loadEnv } from "vite";
+import fs from "node:fs";
+import path from "node:path";
 
+function parseEnvFile(filePath: string) {
+	const result: Record<string, string> = {};
+	if (!fs.existsSync(filePath)) return result;
+	const content = fs.readFileSync(filePath, "utf-8");
+	for (const line of content.split("\n")) {
+		const trimmed = line.trim();
+		if (!trimmed || trimmed.startsWith("#")) continue;
+		const eqIndex = trimmed.indexOf("=");
+		if (eqIndex !== -1) {
+			const key = trimmed.slice(0, eqIndex).trim();
+			let value = trimmed.slice(eqIndex + 1).trim();
+			if ((value.startsWith('"') && value.endsWith('"')) || (value.startsWith("'") && value.endsWith("'"))) {
+				value = value.slice(1, -1);
+			}
+			result[key] = value;
+		}
+	}
+	return result;
+}
+
+const config = {
+	...loadEnv(process.env.NODE_ENV || "", process.cwd(), ""),
+	...parseEnvFile(path.resolve(process.cwd(), "config.env")),
+};
+
+const ISO_DL_URL = config.ISO_DL_URL;
+const ISO_SHA256 = config.ISO_SHA256;
+const RELEASE = config.RELEASE;
+const RELEASE_LINK = config.RELEASE_LINK;
+
+const shaDisplay = ISO_SHA256.length > 10 ? `${ISO_SHA256.slice(0, 5)}...${ISO_SHA256.slice(-5)}` : ISO_SHA256;
 ---
 
 <div class="relative isolate pt-14 dark:bg-stone-950">
@@ -51,17 +84,17 @@ import Link from "@components/ui/link.astro";
                 <div class="mt-6 p-10">
                     <div class="border border-gray-300 p-6 rounded">
                         <div class="text-center">
-                            <h4 class="text-xl font-semibold mb-4 dark:text-white">AxOS 25.08</h4>
+                            <h4 class="text-xl font-semibold mb-4 dark:text-white">AxOS {RELEASE}</h4>
 							<div class="space-y-2">
-								<Link href="https://dl.axos-project.com/AxOS-25.08-1-x86_64.iso" class="block">Download here</Link>
-								<Link href="https://github.com/AxOS-project/AxOS/releases/latest" class="block">Release notes</Link>
+								<Link href={ISO_DL_URL} class="block">Download here</Link>
+								<Link href={RELEASE_LINK} class="block">Release notes</Link>
 								<div class="flex justify-center mt-2">
 									<div class="flex items-center space-x-2">
 										<a id="sha-text" class="text-sm font-mono text-gray-600 dark:text-gray-300 cursor-text select-all">
-											SHA256: 334c1...df197
+											SHA256: {shaDisplay}
 										</a>
 										<button
-											onclick="navigator.clipboard.writeText('334c1b987a33e413c1675f1242f8d38ce83d3f63c19eb13bcbad5329330df197')"
+											onclick={`navigator.clipboard.writeText('${ISO_SHA256}')`}
 											class="text-xs px-2 py-1 border rounded hover:bg-gray-200 dark:hover:bg-gray-700 transition text-gray-600 dark:text-gray-300"
 										>
 											Copy
