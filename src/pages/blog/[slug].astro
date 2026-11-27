@@ -28,7 +28,14 @@ const { Content } = await render();
 const readTime = getArticleReadingTime(post.body);
 ---
 
-<Layout title={post.data.title} lang="en">
+<Layout
+	title={post.data.title}
+	description={post.data.snippet}
+	image={post.data.image?.src}
+	imageAlt={post.data.image?.alt}
+	type="article"
+	lang="en"
+>
 	<Container>
 		<div class="mx-auto prose prose-lg dark:prose-invert mt-14">
 			<a

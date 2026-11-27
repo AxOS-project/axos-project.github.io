@@ -7,32 +7,45 @@ import "@fontsource-variable/inter";
 import { SEO } from "astro-seo";
 export interface Props {
 	title?: string;
+	description?: string;
+	image?: string;
+	imageAlt?: string;
+	type?: string;
 	lang?: string;
 }
 
+const DEFAULT_DESCRIPTION = "The Linux experience, enhanced.";
+const DEFAULT_IMAGE = "/meta/opengraph.png";
+const DEFAULT_IMAGE_ALT = "The Linux experience, enhanced.";
+
 const canonicalURL = new URL(Astro.url.pathname, Astro.site).toString();
 
-const resolvedImageWithDomain = new URL(
-	"/meta/opengraph.png",
-	Astro.site,
-).toString();
+const {
+	title,
+	description = DEFAULT_DESCRIPTION,
+	image = DEFAULT_IMAGE,
+	imageAlt = DEFAULT_IMAGE_ALT,
+	type = "website",
+	lang = "en",
+} = Astro.props;
 
-const { title, lang = null } = Astro.props;
+const isDefaultImage = image === DEFAULT_IMAGE;
+const resolvedImageWithDomain = new URL(image, Astro.site).toString();
 
 const makeTitle = title
 	? `${title} | AxOS`
-	: "AxOS - The linux experience, enhanced.";
+	: "AxOS — The Linux experience, enhanced.";
 ---
 
 <!doctype html>
-<html lang="en">
+<html lang={lang}>
 	<head>
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width" />
 		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-                <link rel="alternate" type="application/rss+xml" title="AxOS" href={new URL("rss.xml", Astro.site)} />
+		<link rel="alternate" type="application/rss+xml" title="AxOS" href={new URL("rss.xml", Astro.site)} />
 		<meta name="generator" content={Astro.generator} />
-		<meta name="theme-color" content="#ffffff" />
+		<meta name="theme-color" content="#a855ff" />
 
 		<ViewTransitions />
 
@@ -41,18 +54,34 @@ const makeTitle = title
 
 		<SEO
 			title={makeTitle}
-			description="AxOS - The linux experience, enhanced."
+			description={description}
 			canonical={canonicalURL}
 			openGraph={{
 				basic: {
 					url: canonicalURL,
-					type: "website",
-					title: `${title} | AxOS`,
+					type: type,
+					title: makeTitle,
 					image: resolvedImageWithDomain,
 				},
-				image: {
-					alt: "AxOS Logo",
+				optional: {
+					siteName: "AxOS",
+					description: description,
 				},
+				image: {
+					alt: imageAlt,
+					...(isDefaultImage && {
+						width: 1200,
+						height: 630,
+						type: "image/png",
+					}),
+				},
+			}}
+			twitter={{
+				card: "summary_large_image",
+				title: makeTitle,
+				description: description,
+				image: resolvedImageWithDomain,
+				imageAlt: imageAlt,
 			}}
 		/>
 
